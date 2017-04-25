@@ -43,7 +43,6 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
         }
 
-
         simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
         simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
 
@@ -55,7 +54,6 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
         simpleChronometer.start();
         simpleChronometer.setBackgroundColor(Color.GREEN);
         simpleChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-
 
             @Override
             public void onChronometerTick(Chronometer chronometer) {
