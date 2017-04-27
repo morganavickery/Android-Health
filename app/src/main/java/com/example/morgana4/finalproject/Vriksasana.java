@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
     private Sensor acc;
     Chronometer simpleChronometer;
     ArrayList<Double> valueList;
+    TextView result;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
         if (sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sm.registerListener(this, acc, sm.SENSOR_DELAY_NORMAL);
+            sm.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL);
 
         }
 
@@ -51,8 +54,10 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
     public void startTracker(View v){
         //start timer and tracking sensor data
+        simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
         simpleChronometer.start();
         simpleChronometer.setBackgroundColor(Color.GREEN);
+        valueList.clear();
         simpleChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
             @Override
@@ -61,9 +66,33 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
                     simpleChronometer.stop();
                     simpleChronometer.setBackgroundColor(Color.RED);
                     //give info from sensor
+                    double mean = findMean(valueList);
+                    if(mean < 5){
+                        //great job
+                        result.setText("Amazing Job! Your average was: " + mean);
+                        result.setBackgroundColor(Color.GREEN);
+                    } else if(mean < 10){
+                        //theres room for improvement
+                        result.setText("Good Job! Your average was: " + mean);
+                        result.setBackgroundColor(Color.YELLOW);
+                    } else {
+                        //keep practicing!
+                        result.setText("Keep Practicing! Your average was: " + mean);
+                        result.setBackgroundColor(Color.RED);
+
+                    }
                 }
             }
         });
+    }
+    public double findMean(ArrayList<Double> a){
+        double sum = 0;
+        double mean;
+        for(int i = 0; i<a.size(); i++){
+            sum = a.get(i) + sum;
+        }
+        mean = sum/a.size();
+        return mean;
     }
 
     protected void onResume() {
