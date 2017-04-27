@@ -26,7 +26,7 @@
         android:layout_height="284dp"
         app:srcCompat="@drawable/vrik"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="41dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
