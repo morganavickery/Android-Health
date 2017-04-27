@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class Virabhadrasana extends AppCompatActivity implements SensorEventList
     private Sensor acc;
     Chronometer simpleChronometer;
     ArrayList<Double> valueList;
+    TextView result;
 
 
     @Override
@@ -32,28 +34,30 @@ public class Virabhadrasana extends AppCompatActivity implements SensorEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virabhadrasana);
 
-    yogaIntent = (Button) findViewById(R.id.yogaButton);
-    distanceIntent = (Button) findViewById(R.id.distanceButton);
+        yogaIntent = (Button) findViewById(R.id.yogaButton);
+        distanceIntent = (Button) findViewById(R.id.distanceButton);
 
-    sm = YogaActivity.sm;
-    acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sm = YogaActivity.sm;
+        acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-        acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sm.registerListener(this, acc, sm.SENSOR_DELAY_NORMAL);
+            acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sm.registerListener(this, acc, sm.SENSOR_DELAY_NORMAL);
 
-    }
+        }
 
-    simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
+        simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
         simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
 
-    valueList = new ArrayList<Double>();
-}
+        valueList = new ArrayList<Double>();
+    }
 
     public void startTracker(View v){
         //start timer and tracking sensor data
+        simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
         simpleChronometer.start();
         simpleChronometer.setBackgroundColor(Color.GREEN);
+        valueList.clear();
         simpleChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
             @Override
@@ -62,9 +66,33 @@ public class Virabhadrasana extends AppCompatActivity implements SensorEventList
                     simpleChronometer.stop();
                     simpleChronometer.setBackgroundColor(Color.RED);
                     //give info from sensor
+                    double mean = findMean(valueList);
+                    if(mean < 5){
+                        //great job
+                        result.setText("Amazing Job! Your average was: " + mean);
+                        result.setBackgroundColor(Color.GREEN);
+                    } else if(mean < 10){
+                        //theres room for improvement
+                        result.setText("Good Job! Your average was: " + mean);
+                        result.setBackgroundColor(Color.YELLOW);
+                    } else {
+                        //keep practicing!
+                        result.setText("Keep Practicing! Your average was: " + mean);
+                        result.setBackgroundColor(Color.RED);
+
+                    }
                 }
             }
         });
+    }
+    public double findMean(ArrayList<Double> a){
+        double sum = 0;
+        double mean;
+        for(int i = 0; i<a.size(); i++){
+            sum = a.get(i) + sum;
+        }
+        mean = sum/a.size();
+        return mean;
     }
 
     protected void onResume() {
