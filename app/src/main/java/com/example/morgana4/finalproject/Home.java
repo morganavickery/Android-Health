@@ -31,6 +31,9 @@ public class Home extends AppCompatActivity {
     }
 
     public void swapDistance(View v){
+
         Log.v("TAG", "swapped to distance intent");
+        Intent i = new Intent(this, DistanceActivity.class);
+        startActivity(i);
     }
 }
