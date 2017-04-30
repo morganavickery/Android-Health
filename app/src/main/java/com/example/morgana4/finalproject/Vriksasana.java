@@ -28,7 +28,6 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
     ArrayList<Double> valueList;
     TextView result;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,23 +35,25 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
         yogaIntent = (Button) findViewById(R.id.yogaButton);
         distanceIntent = (Button) findViewById(R.id.distanceButton);
+        result = (TextView) findViewById(R.id.result);
 
         sm = YogaActivity.sm;
         acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sm.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL);
+            sm.registerListener(this, acc, sm.SENSOR_DELAY_NORMAL);
 
         }
 
         simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
         simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
 
-         valueList = new ArrayList<Double>();
+        valueList = new ArrayList<Double>();
     }
 
-    public void startTracker(View v){
+
+    public void startTracker(View v) {
         //start timer and tracking sensor data
         simpleChronometer.setBase(SystemClock.elapsedRealtime() + (30000));
         simpleChronometer.start();
@@ -62,7 +63,8 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                if(chronometer.getText().toString().equalsIgnoreCase("00:00")) {
+
+                if (chronometer.getText().toString().equalsIgnoreCase("00:00")) {
                     simpleChronometer.stop();
                     simpleChronometer.setBackgroundColor(Color.RED);
                     //give info from sensor
@@ -85,6 +87,7 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
             }
         });
     }
+
     public double findMean(ArrayList<Double> a){
         double sum = 0;
         double mean;
@@ -105,8 +108,7 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
         sm.unregisterListener(this);
     }
 
-
-    public void swapHome(View v){
+    public void swapHome(View v) {
         Log.v("TAG", "swapped to yoga intent");
         Intent i = new Intent(this, YogaActivity.class);
         startActivity(i);
@@ -117,7 +119,7 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
         float xVal = sensorEvent.values[0];
         float yVal = sensorEvent.values[1];
         float zVal = sensorEvent.values[2];
-        double value = Math.sqrt((xVal*xVal)+(yVal*yVal)+(zVal*zVal));
+        double value = Math.sqrt((xVal * xVal) + (yVal * yVal) + (zVal * zVal));
         valueList.add(value);
     }
 
@@ -126,10 +128,7 @@ public class Vriksasana extends AppCompatActivity implements SensorEventListener
 
     }
 
-    @Override
     public void onChronometerTick(Chronometer chronometer) {
 
     }
-
-
 }
