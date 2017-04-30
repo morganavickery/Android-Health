@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.morgana4.finalproject.Vriksasana">
 
+
     <Chronometer
         android:id="@+id/simpleChronometer"
         android:countDown = "true"
@@ -18,32 +19,20 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="218dp"
-        android:layout_height="284dp"
-        app:srcCompat="@drawable/vrik"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="41dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.164" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hold phone vertically above head and press start"
-        android:layout_marginTop="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/startTracker"
@@ -51,22 +40,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="38dp"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="229dp"
+        android:layout_height="221dp"
+        app:srcCompat="@drawable/trik2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-2dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription=""
+        app:layout_constraintHorizontal_bias="0.503" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="23dp"
+        app:layout_constraintTop_toBottomOf="@+id/simpleChronometer"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.501" />
+
     <Button
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
-        android:onClick="swapHome"
-        android:layout_marginTop="193dp"
-        app:layout_constraintTop_toBottomOf="@+id/startTracker"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginTop="97dp"
+        android:onClick="swapHome"
+        android:text="Home"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startTracker" />
 
 </android.support.constraint.ConstraintLayout>
